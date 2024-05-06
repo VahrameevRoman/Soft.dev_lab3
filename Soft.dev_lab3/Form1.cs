@@ -97,7 +97,7 @@ namespace Soft.dev_lab3
             for (int i = 0; i < dataGridView1.ColumnCount; i++)
             {
                 int maxValue = Convert.ToInt32(dataGridView1.Rows[0].Cells[i].Value);
-                for (int j = 1; j < dataGridView1.RowCount - 1; j++)
+                for (int j = 1; j < dataGridView1.RowCount; j++)
                 {
                     if (Convert.ToInt32(dataGridView1.Rows[j].Cells[i].Value) > maxValue)
                     {
