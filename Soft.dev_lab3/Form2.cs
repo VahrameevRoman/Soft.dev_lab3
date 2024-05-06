@@ -96,11 +96,12 @@ namespace Soft.dev_lab3
 
         private void CheckValueDG()
         {
-            for (int i = 0; i < form1.dataGridView1.ColumnCount; i++)
+            double number;
+            for (int i = 0; i < dataGridView3.ColumnCount; i++)
             {
-                for (int j = 0; j < form1.dataGridView1.RowCount; j++)
+                for (int j = 0; j < dataGridView3.RowCount; j++)
                 {
-                    if (CheckForPositiveNumber(dataGridView3.Rows[j].Cells[i].Value.ToString()) == false)
+                    if (double.TryParse(dataGridView3.Rows[j].Cells[i].Value.ToString(), out number) == false)
                     {
                         dataGridView3.Rows[j].Cells[i].Value = 0;
                     }
