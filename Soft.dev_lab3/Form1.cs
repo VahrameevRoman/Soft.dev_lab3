@@ -29,6 +29,7 @@ namespace Soft.dev_lab3
             MessageBoxIcon.Information,
             MessageBoxDefaultButton.Button1,
             MessageBoxOptions.DefaultDesktopOnly);
+
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -57,7 +58,7 @@ namespace Soft.dev_lab3
             }
             else if (result == System.Windows.Forms.DialogResult.No)
             {
-                
+                new Form2(this).Show(); // создаём дочернее окно
             }
         }
 
@@ -65,38 +66,45 @@ namespace Soft.dev_lab3
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                try
+                using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
                 {
-                    string text;
-                    for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                    try
                     {
-                        for (int j = 0; j < dataGridView1.RowCount; j++)
+                        for (int i = 0; i < dataGridView1.RowCount; i++)
                         {
-                            dataGridView1.Columns[i].Rows[j].Va
+                            for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                            {
+                                sw.Write(dataGridView1.Rows[i].Cells[j].Value.ToString());
+                                if (j < dataGridView1.ColumnCount - 1) sw.Write(" ");
+                            }
+                            sw.WriteLine();
                         }
                     }
-
-
-
-
-                    dataGridView1.Rows.Clear();
-                    int nColumns = 0;
-                    foreach (var line in File.ReadLines(openFileDialog1.FileName))
+                    catch (Exception ex)
                     {
-                        nColumns++;
-                    }
-                    dataGridView1.ColumnCount = nColumns;
-                    foreach (var line in File.ReadLines(openFileDialog1.FileName))
-                    {
-                        var array = line.Split();
-                        dataGridView1.Rows.Add(array);
+                        MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
-                catch (SecurityException ex)
+            }
+        }
+
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            int size = dataGridView1.ColumnCount;
+            dataGridView2.ColumnCount = size;
+            dataGridView2.RowCount = 1;
+
+            for (int i = 0; i < dataGridView1.ColumnCount; i++)
+            {
+                int maxValue = Convert.ToInt32(dataGridView1.Rows[0].Cells[i].Value);
+                for (int j = 1; j < dataGridView1.RowCount - 1; j++)
                 {
-                    MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
-                    $"Details:\n\n{ex.StackTrace}");
+                    if (Convert.ToInt32(dataGridView1.Rows[j].Cells[i].Value) > maxValue)
+                    {
+                        maxValue = Convert.ToInt32(dataGridView1.Rows[j].Cells[i].Value);
+                    }
                 }
+                dataGridView2.Rows[0].Cells[i].Value = maxValue;
             }
         }
     }
