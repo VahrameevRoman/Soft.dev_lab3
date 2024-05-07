@@ -37,11 +37,10 @@ namespace Soft.dev_lab3
                     try
                     {
                         dataGridView1.Rows.Clear();
-                        int nColumns = 0;
-                        foreach (var line in File.ReadLines(openFileDialog1.FileName))
-                        {
-                            nColumns++;
-                        }
+
+                        string str = File.ReadLines(openFileDialog1.FileName).ElementAtOrDefault(0);
+                        int nColumns = str.Split(' ').Length;
+
                         dataGridView1.ColumnCount = nColumns;
                         foreach (var line in File.ReadLines(openFileDialog1.FileName))
                         {
