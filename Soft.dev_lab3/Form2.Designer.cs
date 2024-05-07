@@ -123,6 +123,7 @@
             this.buttonCreateArray.TabIndex = 7;
             this.buttonCreateArray.Text = "Создать матрицу";
             this.buttonCreateArray.UseVisualStyleBackColor = false;
+            this.buttonCreateArray.Visible = false;
             this.buttonCreateArray.Click += new System.EventHandler(this.buttonCreateArray_Click);
             // 
             // Form2

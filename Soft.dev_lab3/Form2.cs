@@ -51,6 +51,7 @@ namespace Soft.dev_lab3
         private void CreateArray()
         {
             dataGridView3.Visible = true;
+            buttonCreateArray.Visible = true;
             dataGridView3.ColumnCount = Convert.ToInt32(textBoxColumns.Text);
             dataGridView3.RowCount = Convert.ToInt32(textBoxRows.Text);
             buttonCreateArray.Visible = true;
@@ -101,7 +102,11 @@ namespace Soft.dev_lab3
             {
                 for (int j = 0; j < dataGridView3.RowCount; j++)
                 {
-                    if (double.TryParse(dataGridView3.Rows[j].Cells[i].Value.ToString(), out number) == false)
+                    if (dataGridView3.Rows[j].Cells[i].Value == null)
+                    {
+                        dataGridView3.Rows[j].Cells[i].Value = 0;
+                    }
+                    else if (double.TryParse(dataGridView3.Rows[j].Cells[i].Value.ToString(), out number) == false)
                     {
                         dataGridView3.Rows[j].Cells[i].Value = 0;
                     }
